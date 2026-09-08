@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZONALIBROS - Mundo Antiguo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="index.html">ZONALIBROS</a>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#colecciones">Colecciones</a>
+            <a href="#video">Video</a>
+            <a href="registro.html">Registro</a>
+            <a class="boton-nav" href="login.html">Iniciar sesión</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-contenido">
+                <span class="etiqueta">Librería de historia y cultura antigua</span>
+                <h1>Viaja al mundo antiguo a través de sus grandes obras</h1>
+                <p>Grecia, Roma, filosofía, mitología y epopeyas clásicas reunidas en un catálogo especializado.</p>
+                <a class="boton" href="#catalogo">Explorar libros</a>
+            </div>
+        </section>
+
+        <section id="colecciones" class="colecciones">
+            <article>
+                <span>Ω</span>
+                <h3>Grecia</h3>
+                <p>Epopeyas, filosofía y mitología helénica.</p>
+            </article>
+            <article>
+                <span>SPQR</span>
+                <h3>Roma</h3>
+                <p>Historia, pensamiento y literatura romana.</p>
+            </article>
+            <article>
+                <span>Δ</span>
+                <h3>Filosofía</h3>
+                <p>Ideas que siguen influyendo en nuestro presente.</p>
+            </article>
+        </section>
+
+        <section id="catalogo" class="contenedor">
+            <div class="titulo-seccion">
+                <p>Selección clásica</p>
+                <h2>Catálogo destacado</h2>
+            </div>
+            <div id="catalogoInicio" class="productos"></div>
+        </section>
+
+        <section id="video" class="seccion-video video-publico-seccion">
+            <div class="titulo-seccion claro">
+                <p>Una mirada al pasado</p>
+                <h2>El Coloso de Rodas</h2>
+            </div>
+            <div class="video-marco">
+                <video class="video-dinamico" src="videos/289640.mp4" controls preload="metadata">
+                    Tu navegador no puede reproducir este video.
+                </video>
+            </div>
+            <p class="texto-video">Recreación visual del Coloso de Rodas, una de las siete maravillas del mundo antiguo.</p>
+        </section>
+
+        <section class="informacion">
+            <h2>Sobre ZONALIBROS</h2>
+            <p>Somos una tienda especializada en obras famosas de la Antigüedad. Nuestro catálogo reúne textos fundamentales de Grecia y Roma para lectores interesados en historia, filosofía, mitología y cultura clásica.</p>
+        </section>
+    </main>
+
+    <div id="modalLibro" class="modal-libro">
+        <div class="modal-contenido">
+            <button type="button" class="cerrar-modal" onclick="cerrarDetalleLibro()">×</button>
+            <img id="modalImagen" src="" alt="Portada del libro">
+            <div>
+                <p class="modal-etiqueta">Ficha del libro</p>
+                <h2 id="modalTitulo"></h2>
+                <p><strong>Autor:</strong> <span id="modalAutor"></span></p>
+                <p><strong>Editorial:</strong> <span id="modalEditorial"></span></p>
+                <p><strong>Precio:</strong> <span id="modalPrecio"></span></p>
+                <p id="modalDescripcion"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>ZONALIBROS - Mundo Antiguo</p>
+        <p>Contacto: contacto@zonalibros.cl</p>
+    </footer>
+</body>
+</html>

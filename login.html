@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ZONALIBROS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <a class="logo" href="index.html">ZONALIBROS</a>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="registro.html">Registrarse</a>
+        </nav>
+    </header>
+
+    <main class="pagina-formulario">
+
+        <section class="formulario-contenedor">
+
+            <h1>Iniciar sesión</h1>
+
+            <form id="loginForm">
+
+                <label for="usuarioLogin">Usuario o correo</label>
+
+                <input
+                    type="text"
+                    id="usuarioLogin"
+                    autocomplete="username"
+                    required>
+
+                <label for="passwordLogin">Contraseña</label>
+
+                <input
+                    type="password"
+                    id="passwordLogin"
+                    autocomplete="current-password"
+                    required>
+
+                <p id="errorLogin" class="error"></p>
+
+                <button type="submit">Iniciar sesión</button>
+
+            </form>
+
+            <a href="recuperar.html">¿Olvidaste tu contraseña?</a>
+
+            <p>
+                ¿No tienes cuenta?
+                <a href="registro.html">Crear cuenta</a>
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>ZONALIBROS</p>
+    </footer>
+
+</body>
+
+</html>

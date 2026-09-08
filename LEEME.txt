@@ -1,0 +1,48 @@
+ZONALIBROS - MUNDO ANTIGUO
+
+Abrir el proyecto:
+1. Abrir la carpeta "zona libros" en Visual Studio Code.
+2. Abrir index.html con Live Server.
+
+Cuenta de cliente:
+Usuario: publico
+Contraseña: Publico123@
+
+Cuenta de administrador:
+Usuario: administrador
+Contraseña: Admin123@
+
+Funciones principales:
+- Catálogo de 6 obras clásicas de Grecia y Roma.
+- Botón "Ver libro" con autor, editorial, precio y descripción.
+- Registro y login con validaciones JavaScript.
+- Vista de cliente y vista de administrador.
+- Administrador puede agregar, editar y eliminar libros.
+- Administrador puede eliminar usuarios registrados.
+- Botón cerrar sesión en cliente y administrador.
+- Video local del Coloso de Rodas incluido en el proyecto.
+
+Video utilizado:
+https://pixabay.com/videos/ai-generated-colossus-rhodes-289640/
+
+
+VIDEO
+-----
+El archivo del Coloso de Rodas está guardado en:
+videos/289640.mp4
+
+El video aparece en:
+- Página principal.
+- Vista del cliente.
+- Panel del administrador.
+
+Desde Administrador > Video se puede:
+- Cambiar la ruta o URL del video.
+- Eliminar el video de la página principal y de la vista cliente.
+- Restaurar el video original.
+
+Para usar otro MP4 local:
+1. Copia el archivo nuevo dentro de la carpeta videos.
+2. Entra como administrador.
+3. En "Administrar video" escribe, por ejemplo: videos/mi-video.mp4
+4. Presiona "Cambiar video".

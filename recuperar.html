@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar contraseña - ZONALIBROS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <a class="logo" href="index.html">ZONALIBROS</a>
+
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="login.html">Iniciar sesión</a>
+        </nav>
+    </header>
+
+    <main class="pagina-formulario">
+
+        <section class="formulario-contenedor">
+
+            <h1>Recuperar contraseña</h1>
+
+            <p>
+                Ingresa tu correo registrado para recuperar el acceso.
+            </p>
+
+            <form id="recuperarForm">
+
+                <label for="correoRecuperar">Correo electrónico</label>
+
+                <input
+                    type="email"
+                    id="correoRecuperar"
+                    placeholder="usuario@duoc.cl"
+                    required>
+
+                <p id="mensajeRecuperar"></p>
+
+                <button type="submit">
+                    Recuperar contraseña
+                </button>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>ZONALIBROS</p>
+    </footer>
+
+</body>
+
+</html>

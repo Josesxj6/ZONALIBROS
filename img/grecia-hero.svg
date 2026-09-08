@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efe5d2"/><stop offset="1" stop-color="#cdbb9c"/></linearGradient></defs>
+<rect width="1600" height="700" fill="url(#sky)"/>
+<circle cx="1270" cy="150" r="85" fill="#f4dca6" opacity=".85"/>
+<path d="M0 590 Q250 520 500 590 T1000 580 T1600 565 V700 H0Z" fill="#b9a686"/>
+<g fill="#e8dfcf" stroke="#8d765b" stroke-width="4">
+<rect x="860" y="255" width="560" height="46"/>
+<polygon points="825,255 1140,90 1455,255"/>
+<rect x="900" y="301" width="56" height="260"/>
+<rect x="1000" y="301" width="56" height="260"/>
+<rect x="1100" y="301" width="56" height="260"/>
+<rect x="1200" y="301" width="56" height="260"/>
+<rect x="1300" y="301" width="56" height="260"/>
+<rect x="855" y="561" width="570" height="35"/>
+</g>
+<g opacity=".7" fill="#6c5848"><path d="M180 580c35-95 70-142 100-190 27 55 58 105 92 190z"/><path d="M340 590c40-115 80-170 115-225 30 65 70 125 110 225z"/></g>
+</svg>

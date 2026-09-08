@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliente - ZONALIBROS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="cliente.html">ZONALIBROS</a>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="#catalogoCliente">Catálogo</a>
+            <button id="cerrarSesion" class="boton-salir" type="button">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <main>
+        <section class="bienvenida">
+            <span class="etiqueta">Área de cliente</span>
+            <h1 id="bienvenidaCliente">Bienvenido a ZONALIBROS</h1>
+            <p>Explora nuestra selección de grandes textos del mundo antiguo.</p>
+        </section>
+
+        <section id="catalogoCliente" class="contenedor">
+            <div class="titulo-seccion">
+                <p>Tu biblioteca clásica</p>
+                <h2>Catálogo de libros</h2>
+            </div>
+            <div id="catalogoPublico" class="productos"></div>
+        </section>
+
+        <section id="video" class="seccion-video video-publico-seccion">
+            <div class="titulo-seccion claro">
+                <p>Una mirada al pasado</p>
+                <h2>El Coloso de Rodas</h2>
+            </div>
+            <div class="video-marco">
+                <video class="video-dinamico" src="videos/289640.mp4" controls preload="metadata">
+                    Tu navegador no puede reproducir este video.
+                </video>
+            </div>
+            <p class="texto-video">Recreación visual del Coloso de Rodas, una de las siete maravillas del mundo antiguo.</p>
+        </section>
+    </main>
+
+    <div id="modalLibro" class="modal-libro">
+        <div class="modal-contenido">
+            <button type="button" class="cerrar-modal" onclick="cerrarDetalleLibro()">×</button>
+            <img id="modalImagen" src="" alt="Portada del libro">
+            <div>
+                <p class="modal-etiqueta">Ficha del libro</p>
+                <h2 id="modalTitulo"></h2>
+                <p><strong>Autor:</strong> <span id="modalAutor"></span></p>
+                <p><strong>Editorial:</strong> <span id="modalEditorial"></span></p>
+                <p><strong>Precio:</strong> <span id="modalPrecio"></span></p>
+                <p id="modalDescripcion"></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>ZONALIBROS - Vista Cliente</p>
+    </footer>
+</body>
+</html>

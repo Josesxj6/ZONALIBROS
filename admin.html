@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador - ZONALIBROS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="header admin-header">
+        <a class="logo" href="admin.html">ZONALIBROS ADMIN</a>
+        <nav>
+            <a href="#gestionLibros">Libros</a>
+            <a href="#usuarios">Usuarios</a>
+            <a href="#gestionVideo">Video</a>
+            <a href="index.html">Ver tienda</a>
+            <button id="cerrarSesion" class="boton-salir" type="button">Cerrar sesión</button>
+        </nav>
+    </header>
+
+    <main class="admin-main">
+        <section class="bienvenida admin-bienvenida">
+            <span class="etiqueta">Panel de gestión</span>
+            <h1>Administración de ZONALIBROS</h1>
+            <p>Gestiona el catálogo clásico y los usuarios registrados.</p>
+        </section>
+
+        <section id="gestionLibros" class="panel">
+            <h2>Administrar libros</h2>
+            <form id="libroForm" class="formulario-libro">
+                <input type="hidden" id="libroId">
+
+                <label for="tituloLibro">Título</label>
+                <input type="text" id="tituloLibro" required>
+
+                <label for="autorLibro">Autor</label>
+                <input type="text" id="autorLibro" required>
+
+                <label for="editorialLibro">Editorial</label>
+                <input type="text" id="editorialLibro" required>
+
+                <label for="precioLibro">Precio</label>
+                <input type="number" id="precioLibro" min="1" required>
+
+                <label for="imagenLibro">Ruta o URL de imagen</label>
+                <input type="text" id="imagenLibro" required>
+
+                <label for="descripcionLibro">Descripción breve</label>
+                <textarea id="descripcionLibro" rows="4" required></textarea>
+
+                <div class="grupo-botones">
+                    <button type="submit">Guardar libro</button>
+                    <button type="button" id="cancelarEdicion" class="boton-secundario">Cancelar</button>
+                </div>
+
+                <p id="mensajeLibro" class="mensaje"></p>
+            </form>
+
+            <div id="listaAdminLibros" class="tabla-contenedor"></div>
+        </section>
+
+        <section id="usuarios" class="panel">
+            <h2>Usuarios registrados</h2>
+            <p class="texto-ayuda">Desde este panel también puedes eliminar cuentas registradas.</p>
+            <div id="listaUsuarios" class="tabla-contenedor"></div>
+        </section>
+
+        <section id="gestionVideo" class="panel">
+            <h2>Administrar video</h2>
+            <p class="texto-ayuda">El video guardado aquí se mostrará en la página principal y en la vista del cliente.</p>
+
+            <form id="videoForm" class="formulario-video">
+                <label for="rutaVideo">Ruta o URL del video</label>
+                <input type="text" id="rutaVideo" placeholder="videos/289640.mp4" required>
+                <p class="texto-ayuda">Para cambiarlo por otro archivo local, copia el nuevo MP4 a la carpeta videos y escribe su ruta, por ejemplo: videos/nuevo-video.mp4</p>
+
+                <div class="grupo-botones">
+                    <button type="submit">Cambiar video</button>
+                    <button type="button" id="eliminarVideo" class="boton-peligro">Eliminar video</button>
+                    <button type="button" id="restaurarVideo" class="boton-secundario">Restaurar original</button>
+                </div>
+
+                <p id="mensajeVideo" class="mensaje"></p>
+            </form>
+
+            <div id="previewVideoAdmin" class="preview-video-admin">
+                <h3>Vista previa</h3>
+                <div class="video-marco">
+                    <video class="video-dinamico" src="videos/289640.mp4" controls preload="metadata">
+                        Tu navegador no puede reproducir este video.
+                    </video>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>ZONALIBROS - Panel Administrador</p>
+    </footer>
+</body>
+</html>
