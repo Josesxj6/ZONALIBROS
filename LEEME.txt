@@ -46,3 +46,10 @@ Para usar otro MP4 local:
 2. Entra como administrador.
 3. En "Administrar video" escribe, por ejemplo: videos/mi-video.mp4
 4. Presiona "Cambiar video".
+
+
+CARRO DE COMPRAS
+- El botón Agregar al carrito aparece en el catálogo y en la ficha de cada libro.
+- El contador del carrito se actualiza automáticamente en el menú.
+- La página carrito.html permite aumentar cantidad, disminuir cantidad, eliminar libros, vaciar carrito y finalizar una compra simulada.
+- El carrito se guarda con localStorage usando JSON.stringify y JSON.parse.

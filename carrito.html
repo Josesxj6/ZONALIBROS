@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - ZONALIBROS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a class="logo" href="index.html">ZONALIBROS</a>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="index.html#catalogo">Catálogo</a>
+            <a href="login.html">Iniciar sesión</a>
+            <a href="carrito.html" class="enlace-carrito">Carrito (<span id="contadorCarrito">0</span>)</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="bienvenida carrito-bienvenida">
+            <span class="etiqueta">Compra simulada</span>
+            <h1>Carrito de compras</h1>
+            <p>Revisa los libros seleccionados antes de finalizar tu compra.</p>
+        </section>
+
+        <section class="contenedor carrito-contenedor">
+            <div id="listaCarrito"></div>
+
+            <div class="resumen-carrito">
+                <h2>Resumen</h2>
+                <p>Total de la compra:</p>
+                <p id="totalCarrito" class="total-carrito">$0</p>
+
+                <div class="grupo-botones carrito-acciones">
+                    <button type="button" onclick="vaciarCarrito()">Vaciar carrito</button>
+                    <button type="button" onclick="finalizarCompra()">Finalizar compra</button>
+                </div>
+
+                <p id="mensajeCarrito" class="mensaje"></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>ZONALIBROS - Carrito de compras</p>
+    </footer>
+</body>
+</html>

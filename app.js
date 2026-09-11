@@ -77,6 +77,10 @@ if (!localStorage.getItem("zonaLibrosUsuarios")) {
     localStorage.setItem("zonaLibrosUsuarios", JSON.stringify([]));
 }
 
+if (!localStorage.getItem("zonaLibrosCarrito")) {
+    localStorage.setItem("zonaLibrosCarrito", JSON.stringify([]));
+}
+
 
 const videoOriginal = "videos/289640.mp4";
 
@@ -238,9 +242,17 @@ function mostrarCatalogo(idContenedor) {
     }
 
     const libros = obtenerLibros();
+    const sesion = obtenerSesion();
+    const esAdmin = sesion && sesion.rol === "admin";
     contenedor.innerHTML = "";
 
     libros.forEach(function (libro) {
+        let botonCarrito = "";
+
+        if (!esAdmin) {
+            botonCarrito = `<button type="button" onclick="agregarAlCarrito(${libro.id})">Agregar al carrito</button>`;
+        }
+
         contenedor.innerHTML += `
             <article class="libro">
                 <img src="${libro.imagen}" alt="${libro.titulo}">
@@ -249,7 +261,10 @@ function mostrarCatalogo(idContenedor) {
                     <p class="libro-meta">${libro.autor}</p>
                     <p class="libro-meta">${libro.editorial}</p>
                     <p class="precio">${formatearPrecio(libro.precio)}</p>
-                    <button type="button" onclick="verLibro(${libro.id})">Ver libro</button>
+                    <div class="botones-libro">
+                        <button type="button" onclick="verLibro(${libro.id})">Ver libro</button>
+                        ${botonCarrito}
+                    </div>
                 </div>
             </article>
         `;
@@ -276,6 +291,20 @@ function verLibro(id) {
     document.getElementById("modalPrecio").textContent = formatearPrecio(libro.precio);
     document.getElementById("modalDescripcion").textContent = libro.descripcion;
 
+    const botonModalCarrito = document.getElementById("modalAgregarCarrito");
+    const sesion = obtenerSesion();
+
+    if (botonModalCarrito) {
+        if (sesion && sesion.rol === "admin") {
+            botonModalCarrito.style.display = "none";
+        } else {
+            botonModalCarrito.style.display = "inline-block";
+            botonModalCarrito.onclick = function () {
+                agregarAlCarrito(libro.id);
+            };
+        }
+    }
+
     modal.classList.add("activo");
 }
 
@@ -287,8 +316,224 @@ function cerrarDetalleLibro() {
     }
 }
 
+
+function obtenerCarrito() {
+    return JSON.parse(localStorage.getItem("zonaLibrosCarrito")) || [];
+}
+
+function guardarCarrito(carrito) {
+    localStorage.setItem("zonaLibrosCarrito", JSON.stringify(carrito));
+}
+
+function actualizarContadorCarrito() {
+    const contador = document.getElementById("contadorCarrito");
+
+    if (!contador) {
+        return;
+    }
+
+    const carrito = obtenerCarrito();
+    let totalProductos = 0;
+
+    carrito.forEach(function (producto) {
+        totalProductos += producto.cantidad;
+    });
+
+    contador.textContent = totalProductos;
+}
+
+function agregarAlCarrito(id) {
+    const sesion = obtenerSesion();
+
+    if (sesion && sesion.rol === "admin") {
+        alert("El administrador no utiliza carrito de compras.");
+        return;
+    }
+
+    const libros = obtenerLibros();
+    const libro = libros.find(function (item) {
+        return item.id === id;
+    });
+
+    if (!libro) {
+        return;
+    }
+
+    const carrito = obtenerCarrito();
+    let existe = false;
+
+    carrito.forEach(function (producto) {
+        if (producto.id === id) {
+            producto.cantidad++;
+            existe = true;
+        }
+    });
+
+    if (!existe) {
+        carrito.push({
+            id: libro.id,
+            titulo: libro.titulo,
+            autor: libro.autor,
+            editorial: libro.editorial,
+            precio: libro.precio,
+            imagen: libro.imagen,
+            descripcion: libro.descripcion,
+            cantidad: 1
+        });
+    }
+
+    guardarCarrito(carrito);
+    actualizarContadorCarrito();
+    alert("Libro agregado al carrito: " + libro.titulo);
+}
+
+function calcularTotalCarrito(carrito) {
+    let total = 0;
+
+    carrito.forEach(function (producto) {
+        total += producto.precio * producto.cantidad;
+    });
+
+    return total;
+}
+
+function mostrarCarrito() {
+    const contenedor = document.getElementById("listaCarrito");
+    const totalCarrito = document.getElementById("totalCarrito");
+
+    if (!contenedor) {
+        return;
+    }
+
+    const carrito = obtenerCarrito();
+
+    if (carrito.length === 0) {
+        contenedor.innerHTML = `
+            <div class="carrito-vacio">
+                <h2>Tu carrito está vacío</h2>
+                <p>Agrega libros del catálogo para comenzar tu compra.</p>
+                <a href="cliente.html#catalogoCliente" class="boton">Ver catálogo</a>
+            </div>
+        `;
+
+        if (totalCarrito) {
+            totalCarrito.textContent = formatearPrecio(0);
+        }
+
+        return;
+    }
+
+    let contenido = "";
+
+    carrito.forEach(function (producto) {
+        contenido += `
+            <article class="item-carrito">
+                <img src="${producto.imagen}" alt="${producto.titulo}">
+
+                <div class="item-carrito-info">
+                    <h3>${producto.titulo}</h3>
+                    <p><strong>Autor:</strong> ${producto.autor}</p>
+                    <p><strong>Editorial:</strong> ${producto.editorial}</p>
+                    <p><strong>Precio:</strong> ${formatearPrecio(producto.precio)}</p>
+                </div>
+
+                <div class="cantidad-carrito">
+                    <button type="button" onclick="cambiarCantidadCarrito(${producto.id}, -1)">-</button>
+                    <span>${producto.cantidad}</span>
+                    <button type="button" onclick="cambiarCantidadCarrito(${producto.id}, 1)">+</button>
+                </div>
+
+                <div class="subtotal-carrito">
+                    <p>Subtotal</p>
+                    <strong>${formatearPrecio(producto.precio * producto.cantidad)}</strong>
+                    <button type="button" class="boton-peligro" onclick="eliminarDelCarrito(${producto.id})">Eliminar</button>
+                </div>
+            </article>
+        `;
+    });
+
+    contenedor.innerHTML = contenido;
+
+    if (totalCarrito) {
+        totalCarrito.textContent = formatearPrecio(calcularTotalCarrito(carrito));
+    }
+}
+
+function cambiarCantidadCarrito(id, cambio) {
+    let carrito = obtenerCarrito();
+
+    carrito.forEach(function (producto) {
+        if (producto.id === id) {
+            producto.cantidad += cambio;
+        }
+    });
+
+    carrito = carrito.filter(function (producto) {
+        return producto.cantidad > 0;
+    });
+
+    guardarCarrito(carrito);
+    mostrarCarrito();
+    actualizarContadorCarrito();
+}
+
+function eliminarDelCarrito(id) {
+    let carrito = obtenerCarrito();
+
+    carrito = carrito.filter(function (producto) {
+        return producto.id !== id;
+    });
+
+    guardarCarrito(carrito);
+    mostrarCarrito();
+    actualizarContadorCarrito();
+}
+
+function vaciarCarrito() {
+    const carrito = obtenerCarrito();
+
+    if (carrito.length === 0) {
+        alert("El carrito ya está vacío.");
+        return;
+    }
+
+    const confirmar = confirm("¿Desea vaciar el carrito?");
+
+    if (!confirmar) {
+        return;
+    }
+
+    guardarCarrito([]);
+    mostrarCarrito();
+    actualizarContadorCarrito();
+}
+
+function finalizarCompra() {
+    const carrito = obtenerCarrito();
+    const mensaje = document.getElementById("mensajeCarrito");
+
+    if (carrito.length === 0) {
+        alert("Debe agregar al menos un libro al carrito.");
+        return;
+    }
+
+    const total = calcularTotalCarrito(carrito);
+
+    guardarCarrito([]);
+    mostrarCarrito();
+    actualizarContadorCarrito();
+
+    if (mensaje) {
+        mensaje.textContent = "Compra simulada correctamente. Total pagado: " + formatearPrecio(total);
+    }
+
+    alert("Compra finalizada correctamente.");
+}
+
 mostrarCatalogo("catalogoInicio");
 mostrarCatalogo("catalogoPublico");
+mostrarCarrito();
+actualizarContadorCarrito();
 
 const modalLibro = document.getElementById("modalLibro");
 
@@ -506,6 +751,49 @@ function cerrarSesion() {
     window.location.href = "login.html";
 }
 
+function actualizarMenuSesion() {
+    const sesion = obtenerSesion();
+    const enlacesCarrito = document.querySelectorAll(".enlace-carrito");
+    const navs = document.querySelectorAll("header nav");
+
+    enlacesCarrito.forEach(function (enlace) {
+        if (sesion && sesion.rol === "admin") {
+            enlace.style.display = "none";
+        } else {
+            enlace.style.display = "";
+        }
+    });
+
+    navs.forEach(function (nav) {
+        if (!sesion) {
+            return;
+        }
+
+        const enlacesLogin = nav.querySelectorAll('a[href="login.html"], a[href="registro.html"]');
+
+        enlacesLogin.forEach(function (enlace) {
+            enlace.style.display = "none";
+        });
+
+        if (sesion.rol === "admin" && !nav.querySelector(".enlace-panel-admin") && !window.location.pathname.endsWith("admin.html")) {
+            const enlaceAdmin = document.createElement("a");
+            enlaceAdmin.href = "admin.html";
+            enlaceAdmin.className = "enlace-panel-admin";
+            enlaceAdmin.textContent = "Panel administrador";
+            nav.appendChild(enlaceAdmin);
+        }
+
+        if (!nav.querySelector("#cerrarSesion") && !nav.querySelector(".boton-sesion-dinamico")) {
+            const botonCerrar = document.createElement("button");
+            botonCerrar.type = "button";
+            botonCerrar.className = "boton-salir boton-sesion-dinamico";
+            botonCerrar.textContent = "Cerrar sesión";
+            botonCerrar.addEventListener("click", cerrarSesion);
+            nav.appendChild(botonCerrar);
+        }
+    });
+}
+
 const cerrarSesionBoton = document.getElementById("cerrarSesion");
 
 if (cerrarSesionBoton) {
@@ -517,6 +805,8 @@ if (window.location.pathname.endsWith("cliente.html")) {
 
     if (!sesion) {
         window.location.href = "login.html";
+    } else if (sesion.rol === "admin") {
+        window.location.href = "admin.html";
     } else {
         const bienvenida = document.getElementById("bienvenidaCliente");
 
@@ -533,6 +823,16 @@ if (window.location.pathname.endsWith("admin.html")) {
         window.location.href = "login.html";
     }
 }
+
+if (window.location.pathname.endsWith("carrito.html")) {
+    const sesion = obtenerSesion();
+
+    if (sesion && sesion.rol === "admin") {
+        window.location.href = "admin.html";
+    }
+}
+
+actualizarMenuSesion();
 
 function mostrarLibrosAdmin() {
     const contenedor = document.getElementById("listaAdminLibros");
